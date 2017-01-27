@@ -139,8 +139,8 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
  * Blog routes.
  */
 app.get('/blog', passportConfig.isAuthenticated, blogController.getIndex);
-app.get('/chat', passportConfig.isAuthenticated, chatController.chat);
-app.get('/blog/:slug/show', passportConfig.isAuthenticated, blogController.getShowBlog);
+// app.get('/chat', passportConfig.isAuthenticated, chatController.chat);
+app.get('/blog/:slug/show', blogController.getShowBlog);
 app.get('/blog/new', passportConfig.isAuthenticated, blogController.getNewBlog);
 app.post('/blog/new', passportConfig.isAuthenticated, blogController.postNewBlog);
 app.get('/blog/:slug/edit', passportConfig.isAuthenticated, blogController.getUpdateBlog);
