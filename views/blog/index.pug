@@ -1,0 +1,54 @@
+extends ../layout
+
+block content
+    h2 List Articles
+    hr
+
+
+    //  .col-sm-4
+    //    a(href='/blog/upload', style='color: #1565c0')
+    //      .panel.panel-default(style='background-color: #fff')
+    //        .panel-body
+    //          img(src='http://i.imgur.com/UPTzIdC.png', height=40)
+    //          |  File Upload
+
+    .row
+    a.btn(href='/blog/new')
+        i.fa.fa-plus
+        | New Article
+
+    div.col-sm-12
+        table.table.table-responsive
+            thead
+                th(style="width: 15%") Title
+                th Body
+                th(style="width: 20%") Created At
+                th.table-actions
+                th.table-actions
+            tbody
+                each post in blogs
+                    tr
+                        td=  post.title
+                        td= post.bodyBlog
+                        td= moment(post.publishedAt).format('LLL')
+                        td
+                            a(href=`blog/${post.slug}/edit`)
+                                i.fa.fa-pencil
+                        td
+                            form(action=`blog/${post.slug}/delete`, method='POST', style="display: none")
+                                input(type='hidden', name='_csrf', value=_csrf)
+                                //button.fa.fa-trash(type='submit' style="color: #2CA8FF")
+                            a.del(href='#')
+                                i.fa.fa-trash
+
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js')
+
+    script.
+
+        $('a.del').click(function (e) {
+            var form = $(this).parent('td').find('form');
+            form.submit();
+            $(this).attr('disabled', true);
+        });
+

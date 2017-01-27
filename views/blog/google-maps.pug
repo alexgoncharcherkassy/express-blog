@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+    style.
+        #map {
+            width: 100%;
+            height: 500px;
+        }
+
+    .page-header
+        h2
+            i.fa.fa-google
+            | Google Maps
+
+    h3 Markers Example
+
+    #map
+
+    script.
+        var map;
+
+        function initMap() {
+            var lat = 100,
+                lon = -100;
+
+            navigator.geolocation.getCurrentPosition(function (pos) {
+                var crd = pos.coords;
+
+                lat = crd.latitude;
+                lon = crd.longitude;
+            });
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: lat, lng: lon },
+                zoom: 4
+            });
+        }
+
+
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCJUqqC9Lg3-ayYuWa1VgDk5hiHiHIe30A&callback=initMap')
+
