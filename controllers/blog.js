@@ -35,9 +35,7 @@ exports.getShowBlog = (req, res) => {
  */
 
 exports.getNewBlog = (req, res) => {
-    res.render('blog/new', {
-        title: 'File Upload'
-    });
+    res.render('blog/new');
 };
 /**
  * POST /blog/new
@@ -124,11 +122,4 @@ exports.postDeleteBlog = (req, res, next) => {
         res.redirect('/blog');
     });
 };
-/**
- * GET /blog/google-maps
- */
-exports.getGoogleMaps = (req, res) => {
-    res.render('blog/google-maps', {
-        title: 'Google Maps API'
-    });
-};
+

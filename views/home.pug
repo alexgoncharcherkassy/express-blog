@@ -8,6 +8,7 @@ block content
       div.panel.panel-default
         div.panel-heading
           h4.panel-info.panel-title= post.title
-        div.panel-body= post.bodyBlog
+        div.panel-body= post.bodyBlog.substr(0, 150) + ' '
+          a(href=`blog/${post.slug}/show`, role='button') Read more »
         div.panel-footer
-          a.btn.btn-default(href=`blog/${post.slug}`, role='button') View details »
+          p= "Published " + moment(post.publishedAt).format('LLL')

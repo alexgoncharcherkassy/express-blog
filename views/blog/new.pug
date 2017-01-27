@@ -7,15 +7,15 @@ block content
     form.form-horizontal(method='POST')
         input(type='hidden', name='_csrf', value=_csrf)
         .form-group
-            label(class='col-sm-2 control-label', for='title') Title
-            .col-sm-8
+            label(class='col-sm-1 control-label', for='title') Title
+            .col-sm-11
                 input.form-control(type='text', name='title', id='title', autofocus=true)
         .form-group
-            label(class='col-sm-2 control-label', for='bodyBlog') Text
-            .col-sm-8
+            label(class='col-sm-1 control-label', for='bodyBlog') Text
+            .col-sm-11
                 textarea.form-control(name='bodyBlog', id='bodyBlog', rows='7')
         .form-group
-            .col-sm-offset-2.col-sm-8
+            .col-sm-offset-1.col-sm-11
                 button.btn.btn-primary(type='submit')
                     i.fa.fa-envelope
                     | Save

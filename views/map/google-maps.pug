@@ -7,12 +7,7 @@ block content
             height: 500px;
         }
 
-    .page-header
-        h2
-            i.fa.fa-google
-            | Google Maps
-
-    h3 Markers Example
+    h3 Google Map
 
     #map
 
@@ -20,8 +15,8 @@ block content
         var map;
 
         function initMap() {
-            var lat = 100,
-                lon = -100;
+            var lat = 49.4318567,
+                lon = 32.0566764;
 
             navigator.geolocation.getCurrentPosition(function (pos) {
                 var crd = pos.coords;
@@ -30,10 +25,12 @@ block content
                 lon = crd.longitude;
             });
 
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: lat, lng: lon },
-                zoom: 4
-            });
+            map = setTimeout(function () {
+                new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: lat, lng: lon},
+                    zoom: 5
+                });
+            }, 3000);
         }
 
 

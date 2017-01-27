@@ -3,15 +3,6 @@ extends ../layout
 block content
     h2 List Articles
     hr
-
-
-    //  .col-sm-4
-    //    a(href='/blog/upload', style='color: #1565c0')
-    //      .panel.panel-default(style='background-color: #fff')
-    //        .panel-body
-    //          img(src='http://i.imgur.com/UPTzIdC.png', height=40)
-    //          |  File Upload
-
     .row
     a.btn(href='/blog/new')
         i.fa.fa-plus
@@ -29,7 +20,7 @@ block content
                 each post in blogs
                     tr
                         td=  post.title
-                        td= post.bodyBlog
+                        td= post.bodyBlog.substr(0, 150) + ' ...'
                         td= moment(post.publishedAt).format('LLL')
                         td
                             a(href=`blog/${post.slug}/edit`)
@@ -37,7 +28,6 @@ block content
                         td
                             form(action=`blog/${post.slug}/delete`, method='POST', style="display: none")
                                 input(type='hidden', name='_csrf', value=_csrf)
-                                //button.fa.fa-trash(type='submit' style="color: #2CA8FF")
                             a.del(href='#')
                                 i.fa.fa-trash
 

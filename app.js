@@ -34,6 +34,8 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const blogController = require('./controllers/blog');
 const contactController = require('./controllers/contact');
+const chatController = require('./controllers/chat');
+const mapController = require('./controllers/map');
 
 /**
  * API keys and Passport configuration.
@@ -45,6 +47,8 @@ const passportConfig = require('./config/passport');
  */
 const app = express();
 app.locals.moment = require('moment');
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 /**
  * Connect to MongoDB.
  */
@@ -134,14 +138,15 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 /**
  * Blog routes.
  */
-app.get('/blog', blogController.getIndex);
-app.get('/blog/:slug', blogController.getShowBlog);
-app.get('/blog/new', blogController.getNewBlog);
-app.post('/blog/new', blogController.postNewBlog);
-app.get('/blog/:slug/edit', blogController.getUpdateBlog);
-app.post('/blog/:slug/edit', blogController.postUpdateBlog);
-app.post('/blog/:slug/delete', blogController.postDeleteBlog);
-app.get('/blog/google-maps', blogController.getGoogleMaps);
+app.get('/blog', passportConfig.isAuthenticated, blogController.getIndex);
+app.get('/chat', passportConfig.isAuthenticated, chatController.chat);
+app.get('/blog/:slug/show', passportConfig.isAuthenticated, blogController.getShowBlog);
+app.get('/blog/new', passportConfig.isAuthenticated, blogController.getNewBlog);
+app.post('/blog/new', passportConfig.isAuthenticated, blogController.postNewBlog);
+app.get('/blog/:slug/edit', passportConfig.isAuthenticated, blogController.getUpdateBlog);
+app.post('/blog/:slug/edit', passportConfig.isAuthenticated, blogController.postUpdateBlog);
+app.post('/blog/:slug/delete', passportConfig.isAuthenticated, blogController.postDeleteBlog);
+app.get('/google-maps', mapController.getGoogleMaps);
 
 /**
  * OAuth authentication routes. (Sign in)
@@ -160,11 +165,21 @@ app.get('/auth/google/callback', passport.authenticate('google', {failureRedirec
  */
 app.use(errorHandler());
 
+io.on('connection', function(socket){
+    socket.on('chat message', function(msg){
+        io.emit('chat message', msg);
+    });
+});
+
 /**
  * Start Express server.
  */
 app.listen(app.get('port'), () => {
     console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env'));
+    console.log('  Press CTRL-C to stop\n');
+});
+http.listen(3001, () => {
+    console.log('%s Soket.io is running at http://localhost:%d in %s mode', chalk.green('✓'), 3001, app.get('env'));
     console.log('  Press CTRL-C to stop\n');
 });
 
