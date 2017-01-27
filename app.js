@@ -183,7 +183,9 @@ http.listen(3001, () => {
     console.log('  Press CTRL-C to stop\n');
 });
 
-app.on('SIGINT', () => {
+process.on('SIGINT', () => {
     console.log('Process finished with exit code %s', chalk.green(130));
+    process.exit();
 });
+
 module.exports = app;
