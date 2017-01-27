@@ -10,7 +10,8 @@ exports.index = (req, res) => {
             return next(err);
         }
         res.render('home', {
-            blogs: result
+            blogs: result,
+            title: 'Home'
         });
     })
 };

@@ -11,7 +11,8 @@ exports.getIndex = (req, res) => {
             return next(err);
         }
         res.render('blog/index', {
-            blogs: result
+            blogs: result,
+            title: 'Articles'
         });
     })
 };
@@ -26,7 +27,8 @@ exports.getShowBlog = (req, res) => {
             return next(err);
         }
         res.render('blog/show', {
-            post: result
+            post: result,
+            title: 'Articles'
         });
     })
 };
@@ -35,7 +37,9 @@ exports.getShowBlog = (req, res) => {
  */
 
 exports.getNewBlog = (req, res) => {
-    res.render('blog/new');
+    res.render('blog/new', {
+        title: 'Articles'
+    });
 };
 /**
  * POST /blog/new
@@ -76,7 +80,8 @@ exports.getUpdateBlog = (req, res, next) => {
             return;
         }
         res.render('blog/edit', {
-            blog: blog
+            blog: blog,
+            title: 'Articles'
         });
     });
 };
